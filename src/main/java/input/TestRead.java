@@ -1,6 +1,6 @@
-package trainer;
+package input;
 
-import input.ReadTrainer;
+import trainer.Trainer;
 
 import java.io.File;
 

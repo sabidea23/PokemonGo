@@ -7,20 +7,18 @@ import trainer.Ability;
 import trainer.Item;
 import trainer.Pokemon;
 
-public class BuildObjects {
-     /*
-     citesc datele primului antrenor:
-        varsta, nume
-            primul pokemon
-            al doilea
-            al treilea
-      */
-    //creaza metoda care primeste un fisier text in care
-    //pe prima linie se afla numele###varsta
-    //a doua linie datele celui de-al doilea pokemon:
-    //nume###hp###normalAttack###specialAttack##def###SpecialDef###
-    //pentru abilitatea 1: dmg###stun###dodge###cd
-    //pentru abilitatea 2: dmg###stun###dodge###cd
+public class CreatePokemon {
+
+    public static Item createItem(String []arrDetails) {
+        return new ItemBuilder()
+                .withName(arrDetails[0])
+                .withHp(Integer.parseInt(arrDetails[1]))
+                .withNormalAttack(Integer.parseInt(arrDetails[2]))
+                .withSpecialAttack(Integer.parseInt(arrDetails[3]))
+                .withDefense(Integer.parseInt(arrDetails[4]))
+                .withSpecialDefense(Integer.parseInt(arrDetails[5]))
+                .build();
+    }
 
     //metoda care intoarce o abilitate
     public static Ability createAbility(String []ability) {
@@ -43,24 +41,6 @@ public class BuildObjects {
                 .withSpecialDefense(Integer.parseInt(details[5]))
                 .withAbility1(createAbility(ability1))
                 .withAbility2(createAbility(ability2))
-                .build();
-    }
-
-    //fisierul cu  items va fi de forma:
-    //nr de obiecte pentru primul pokemon
-    //obiect1....
-    //obiect2..
-    //nr de obiecte pt al doilea pokemon
-    //obiect 1...
-
-    public static Item createItem(String []arrDetails) {
-        return new ItemBuilder()
-                .withName(arrDetails[0])
-                .withHp(Integer.parseInt(arrDetails[1]))
-                .withNormalAttack(Integer.parseInt(arrDetails[2]))
-                .withSpecialAttack(Integer.parseInt(arrDetails[3]))
-                .withDefense(Integer.parseInt(arrDetails[4]))
-                .withSpecialDefense(Integer.parseInt(arrDetails[5]))
                 .build();
     }
 }

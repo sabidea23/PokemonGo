@@ -13,8 +13,7 @@ import java.util.HashMap;
 
 public class ReadTrainer {
     public static final int NUMBER_POKEMONS = 3;
-
-
+    
     public static HashMap<String, ArrayList<Item>> addItems(Trainer trainer,
                                                             File itemsFile) throws Exception {
         HashMap<String, ArrayList<Item>> listItems = new HashMap<>();
@@ -25,7 +24,7 @@ public class ReadTrainer {
                 for (int j = 0; j < Integer.parseInt(numberItems); j++) {
                     String details = br.readLine();
                     String []arrDetails = details.split("###");
-                    items.add(BuildObjects.createItem(arrDetails));
+                    items.add(CreatePokemon.createItem(arrDetails));
                 }
                 listItems.put(trainer.getPokemons().get(i).getName(), items);
             }
@@ -52,7 +51,7 @@ public class ReadTrainer {
 
                 String pokemonAbility2 = br.readLine();
                 String []arrAbility2 = pokemonAbility2.split("###");
-                pokemons.add(BuildObjects.createPokemon(arrDetailsPokemon, arrAbility1, arrAbility2));
+                pokemons.add(CreatePokemon.createPokemon(arrDetailsPokemon, arrAbility1, arrAbility2));
             }
             trainer.setPokemons(pokemons);
             trainer.setItems(addItems(trainer,itemsFile));

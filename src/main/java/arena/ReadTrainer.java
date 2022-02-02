@@ -1,8 +1,10 @@
 package arena;
 
 import builder.AbilityBuilder;
+import builder.ItemBuilder;
 import builder.PokemonBuilder;
 import trainer.Ability;
+import trainer.Item;
 import trainer.Pokemon;
 import trainer.Trainer;
 
@@ -10,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class ReadTrainer {
     public static final int NUMBER_POKEMONS = 3;
@@ -51,10 +55,46 @@ public class ReadTrainer {
                 .build();
     }
 
+    //fisierul cu  items va fi de forma:
+    //nr de obiecte pentru primul pokemon
+    //obiect1....
+    //obiect2..
+    //nr de obiecte pt al doilea pokemon
+    //obiect 1...
+
+    public static Item createItem(String []arrDetails) {
+        return new ItemBuilder()
+                .withName(arrDetails[0])
+                .withHp(Integer.parseInt(arrDetails[1]))
+                .withNormalAttack(Integer.parseInt(arrDetails[2]))
+                .withSpecialAttack(Integer.parseInt(arrDetails[3]))
+                .withDefense(Integer.parseInt(arrDetails[4]))
+                .withSpecialDefense(Integer.parseInt(arrDetails[5]))
+                .build();
+    }
+
+    public static HashMap<String, ArrayList<Item>> addItems(Trainer trainer,
+                                                            File itemsFile) throws Exception {
+        HashMap<String, ArrayList<Item>> listItems = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(itemsFile))) {
+            for (int i = 0; i < NUMBER_POKEMONS; i++) {
+                ArrayList<Item> items = new ArrayList<>();
+                String numberItems = br.readLine();
+                for (int j = 0; j < Integer.parseInt(numberItems); j++) {
+                    String details = br.readLine();
+                    String []arrDetails = details.split("###");
+                    items.add(createItem(arrDetails));
+                }
+                listItems.put(trainer.getPokemons().get(i).getName(), items);
+            }
+        }
+        return  listItems;
+    }
+
     //metoda care deschide fisierul si intoarce un antrenor
-    public static Trainer readTrainer(File file) throws Exception {
+    public static Trainer readTrainer(File trainerFile, File itemsFile) throws Exception {
         Trainer trainer = new Trainer();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(trainerFile))) {
             String trainerDetailes = br.readLine();
             String[] arrDetails = trainerDetailes.split("###");
             trainer.setName(arrDetails[0]);
@@ -73,14 +113,9 @@ public class ReadTrainer {
                 pokemons.add(createPokemon(arrDetailsPokemon, arrAbility1, arrAbility2));
             }
             trainer.setPokemons(pokemons);
+            trainer.setItems(addItems(trainer,itemsFile));
         }
         return trainer;
-    }
-
-    public static void main(String[] args) throws Exception {
-        File newFile = new File("tests\\test1\\test1_antrenor1.in");
-        Trainer trainer1 = readTrainer(newFile);
-        System.out.println(trainer1.toString());
     }
 }
 

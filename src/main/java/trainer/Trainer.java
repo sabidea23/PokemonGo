@@ -1,11 +1,13 @@
 package trainer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Trainer {
     private String name;
     private int age;
     private ArrayList<Pokemon> pokemons;
+    private HashMap<String, ArrayList<Item>> items;
 
     public String getName() {
         return name;
@@ -31,12 +33,26 @@ public class Trainer {
         this.pokemons = pokemons;
     }
 
+    public HashMap<String, ArrayList<Item>> getItems() {
+        return items;
+    }
+
+    public void setItems(HashMap<String, ArrayList<Item>> items) {
+        this.items = items;
+    }
+
     @Override
     public String toString() {
         return "Trainer{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", pokemons=" + pokemons +
+                ", items=" + items +
                 '}';
     }
+//inainte de fiecare batalie, antrenorul ofera obiectele unui pkemon
+    //in hashmap, cheia este reprezentata de numele fiecarui pokemon, iar valoarea o lista de obiecte
+
+    //metoda care adauga unui pokemon obiectele inainte de o batalie in arena: primeste numele unui pokemon
+    //si intoarce void -folosim decorator pattern
 }

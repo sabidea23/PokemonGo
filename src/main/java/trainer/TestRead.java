@@ -1,6 +1,6 @@
 package trainer;
 
-import arena.ReadTrainer;
+import input.ReadTrainer;
 
 import java.io.File;
 

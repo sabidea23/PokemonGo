@@ -9,7 +9,7 @@ import java.util.ArrayList;
 //obiectele
 //metoda care decoreaza un pokemon cu obiectele sale
 
-public class Prepare {
+public class PreparePokemons {
     public static void increasePowers(Pokemon pokemon, Item item) {
         pokemon.setHP(pokemon.getHP() + item.getHP());
         pokemon.setDefense(pokemon.getDefense() + item.getDefense());

@@ -1,6 +1,9 @@
 package trainer;
 
 public class Pokemon {
+
+    public final int NO_ATTACK = -1;
+
     private String name;
     private int HP;
     private int normalAttack;
@@ -86,5 +89,24 @@ public class Pokemon {
                 ", ability1=" + ability1 +
                 ", ability2=" + ability2 +
                 '}';
+    }
+
+    public int checkNormalAttack(Pokemon pokemon) {
+        if (pokemon.getNormalAttack() != NO_ATTACK)
+            return pokemon.getNormalAttack();
+        return 0;
+    }
+
+    public int checkSpecialAttack(Pokemon pokemon) {
+        if (pokemon.getSpecialAttack() != NO_ATTACK)
+            return pokemon.getSpecialAttack();
+        return 0;
+    }
+
+    public static int getSum(Pokemon pokemon) {
+        int sumQualities = 0;
+        sumQualities += pokemon.getHP() + pokemon.checkNormalAttack(pokemon) + pokemon.checkSpecialAttack(pokemon) +
+                pokemon.getSpecialDefense() + pokemon.getDefense();
+        return sumQualities;
     }
 }

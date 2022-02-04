@@ -7,6 +7,7 @@ import trainer.Trainer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -14,8 +15,7 @@ import java.util.HashMap;
 public class ReadTrainer {
     public static final int NUMBER_POKEMONS = 3;
     
-    public static HashMap<String, ArrayList<Item>> addItems(Trainer trainer,
-                                                            File itemsFile) throws Exception {
+    public static HashMap<String, ArrayList<Item>> addItems(Trainer trainer, File itemsFile) {
         HashMap<String, ArrayList<Item>> listItems = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(itemsFile))) {
             for (int i = 0; i < NUMBER_POKEMONS; i++) {
@@ -28,12 +28,14 @@ public class ReadTrainer {
                 }
                 listItems.put(trainer.getPokemons().get(i).getName(), items);
             }
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
         return  listItems;
     }
 
     //metoda care deschide fisierul si intoarce un antrenor
-    public static Trainer readTrainer(File trainerFile, File itemsFile) throws Exception {
+    public static Trainer readTrainer(File trainerFile, File itemsFile) {
         Trainer trainer = new Trainer();
         try (BufferedReader br = new BufferedReader(new FileReader(trainerFile))) {
             String trainerDetailes = br.readLine();
@@ -55,6 +57,8 @@ public class ReadTrainer {
             }
             trainer.setPokemons(pokemons);
             trainer.setItems(addItems(trainer,itemsFile));
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
         }
         return trainer;
     }

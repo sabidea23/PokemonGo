@@ -21,7 +21,7 @@ public class WriteFile implements AventuraResult{
     public void writeResult(String result) {
         //scrie sirul primit in fisierul de output
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
-            writer.write(result + "\n\n");
+            writer.write(result + "\n");
         } catch (IOException e) {
             System.out.print(e.getMessage());
         }

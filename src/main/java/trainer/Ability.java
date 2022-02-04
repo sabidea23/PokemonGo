@@ -1,5 +1,7 @@
 package trainer;
 
+import builder.AbilityBuilder;
+
 public class Ability {
     private int damage;
     private boolean stun;
@@ -46,5 +48,19 @@ public class Ability {
                 ", dodge=" + dodge +
                 ", cooldown=" + cooldown +
                 '}';
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return (Ability) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return new AbilityBuilder()
+                    .withDamage(this.getDamage())
+                    .withDodge(this.isDodge())
+                    .withStun(this.isStun())
+                    .withCooldown(this.getCooldown())
+                    .build();
+        }
     }
 }

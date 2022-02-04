@@ -33,8 +33,20 @@ public class Test {
 
         initFiles(fileTrainer1, fileTrainer2, fileItems1, fileItems2, fileOutput);
         Arena arena = new Arena(inputTrainer1, inputTrainer2, items1, items2, outputFile);
-        arena.firstFight();
+        arena.fight();
     }
 
+    @org.junit.jupiter.api.Test
+    public void Test2() {
+        String fileTrainer1 = "tests\\\\test2\\\\test2_antrenor1.in";
+        String fileTrainer2 = "tests\\test2\\test2_antrenor2.in";
+        String fileItems1 = "tests\\test2\\test2_items1.in";
+        String fileItems2 = "tests\\test2\\test2_items2.in";
+        String fileOutput = "tests\\test2\\test2_output.in";
+
+        initFiles(fileTrainer1, fileTrainer2, fileItems1, fileItems2, fileOutput);
+        Arena arena = new Arena(inputTrainer1, inputTrainer2, items1, items2, outputFile);
+        arena.fight();
+    }
 
 }

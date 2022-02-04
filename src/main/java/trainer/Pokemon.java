@@ -1,5 +1,7 @@
 package trainer;
 
+import builder.PokemonBuilder;
+
 public class Pokemon {
 
     public final int NO_ATTACK = -1;
@@ -108,5 +110,25 @@ public class Pokemon {
         sumQualities += pokemon.getHP() + pokemon.checkNormalAttack(pokemon) + pokemon.checkSpecialAttack(pokemon) +
                 pokemon.getSpecialDefense() + pokemon.getDefense();
         return sumQualities;
+    }
+
+    @Override
+    public Object clone() {
+        Pokemon pokemon = null;
+        try {
+            pokemon = (Pokemon) super.clone();
+        } catch (CloneNotSupportedException e) {
+            pokemon = new PokemonBuilder()
+                    .withName(this.name)
+                    .withNormalAttack(this.getNormalAttack())
+                    .withSpecialAttack(this.getSpecialAttack())
+                    .withDefense(this.getDefense())
+                    .withSpecialDefense(this.getSpecialDefense())
+                    .build();
+        }
+        pokemon.ability1 = (Ability) this.ability1.clone();
+        pokemon.ability2 = (Ability) this.ability2.clone();
+
+        return pokemon;
     }
 }

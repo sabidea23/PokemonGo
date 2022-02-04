@@ -15,14 +15,10 @@ public class PreparePokemons {
         pokemon.setDefense(pokemon.getDefense() + item.getDefense());
         pokemon.setSpecialDefense(pokemon.getSpecialDefense() + item.getSpecialDefense());
 
-        if (pokemon.getNormalAttack() == -1 && item.getNormalAttack() > 0)
-            pokemon.setNormalAttack(item.getNormalAttack());
-        else
+        if (pokemon.getNormalAttack() != -1 && item.getNormalAttack() > 0)
             pokemon.setNormalAttack(pokemon.getNormalAttack() + item.getNormalAttack());
 
-        if (pokemon.getSpecialAttack() == -1 && item.getSpecialAttack() > 0)
-            pokemon.setSpecialAttack(item.getSpecialAttack());
-        else
+        if (pokemon.getSpecialAttack() != -1 && item.getSpecialAttack() > 0)
             pokemon.setSpecialAttack(pokemon.getSpecialAttack() + item.getSpecialAttack());
     }
 

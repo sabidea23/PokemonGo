@@ -50,6 +50,10 @@ public class Trainer {
                 ", items=" + items +
                 '}';
     }
+
+    //creste atributele unui pokemon cu 1 pentru ca a reusit sa castige o lupta
+    public static void incrementPowers(int index) {
+    }
 //inainte de fiecare batalie, antrenorul ofera obiectele unui pkemon
     //in hashmap, cheia este reprezentata de numele fiecarui pokemon, iar valoarea o lista de obiecte
 

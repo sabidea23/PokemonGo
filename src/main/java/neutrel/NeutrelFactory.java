@@ -3,7 +3,7 @@ package neutrel;
 public class NeutrelFactory {
     private static NeutrelFactory singleInstance;
 
-    NeutrelFactory() {
+    public NeutrelFactory() {
     }
 
     public static NeutrelFactory instance() {
@@ -12,7 +12,7 @@ public class NeutrelFactory {
             return singleInstance;
         }
 
-        public Neutrel makeNeutrel(TipNeutrel tipNeutrel) {
+        public Neutrel makeNeutrel(TypeNeutrel tipNeutrel) {
             return switch (tipNeutrel) {
                 case Neutrel1 -> new Neutrel1();
                 case Neutrel2 -> new Neutrel2();

@@ -14,7 +14,10 @@ import java.util.HashMap;
 
 public class ReadTrainer {
     public static final int NUMBER_POKEMONS = 3;
-    
+
+    /**
+     * Add the objects of each Pokemon in the hashmap, depending on the key represented by the name.
+     */
     public static HashMap<String, ArrayList<Item>> addItems(Trainer trainer, File itemsFile) {
         HashMap<String, ArrayList<Item>> listItems = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(itemsFile))) {
@@ -34,7 +37,12 @@ public class ReadTrainer {
         return  listItems;
     }
 
-    //metoda care deschide fisierul si intoarce un antrenor
+    /**
+     * The coach's name and age are read from the input file, then the data about each
+     * pokemon and his abilities.
+     * The special objects of each trainer are read from another file, they are added in the hashmap
+      * according to the name of the Pokemon.
+     */
     public static Trainer readTrainer(File trainerFile, File itemsFile) {
         Trainer trainer = new Trainer();
         try (BufferedReader br = new BufferedReader(new FileReader(trainerFile))) {

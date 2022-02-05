@@ -51,12 +51,24 @@ public class Trainer {
                 '}';
     }
 
-    //creste atributele unui pokemon cu 1 pentru ca a reusit sa castige o lupta
-    public static void incrementPowers(int index) {
-    }
-//inainte de fiecare batalie, antrenorul ofera obiectele unui pkemon
-    //in hashmap, cheia este reprezentata de numele fiecarui pokemon, iar valoarea o lista de obiecte
+    /**
+     * Because he won the battle, the pokemon gets an extra point on all the attributes
+     */
+    public void incrementPowers(int indexPokemon) {
+        this.getPokemons().get(indexPokemon).setHP
+                (this.getPokemons().get(indexPokemon).getHP() + 1);
 
-    //metoda care adauga unui pokemon obiectele inainte de o batalie in arena: primeste numele unui pokemon
-    //si intoarce void -folosim decorator pattern
+        this.getPokemons().get(indexPokemon).setDefense(this.getPokemons().get(indexPokemon).getDefense() + 1);
+
+        this.getPokemons().get(indexPokemon).setSpecialDefense
+                (this.getPokemons().get(indexPokemon).getSpecialDefense() + 1);
+
+        if (this.getPokemons().get(indexPokemon).getSpecialAttack() != -1) {
+            this.getPokemons().get(indexPokemon).setSpecialAttack
+                    (this.getPokemons().get(indexPokemon).getSpecialAttack() + 1);
+        } else {
+            this.getPokemons().get(indexPokemon).setNormalAttack
+                    (this.getPokemons().get(indexPokemon).getNormalAttack() + 1);
+        }
+    }
 }

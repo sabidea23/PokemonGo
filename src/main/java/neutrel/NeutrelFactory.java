@@ -3,7 +3,7 @@ package neutrel;
 public class NeutrelFactory {
     private static NeutrelFactory singleInstance;
 
-    public NeutrelFactory() {
+    private NeutrelFactory() {
     }
 
     public static NeutrelFactory instance() {

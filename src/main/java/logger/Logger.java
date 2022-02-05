@@ -1,27 +1,42 @@
 package logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-//observer
 public class Logger {
     private ArrayList<AventuraResult> results = new ArrayList<>();
     private File outputFile;
 
-    public Logger(File outputFile) {
-        this.outputFile = outputFile;
+    private static Logger single_instance = null;
+
+    private Logger() {
     }
 
-    //adauga o noua optiune de afisare a rezultatului in lista de optiuni
+    public static Logger getInstance() {
+        if (single_instance == null)
+            single_instance = new Logger();
+
+        return single_instance;
+    }
+
+    /**
+     * Adds a new way to display battle information in the list
+     */
     public void addResult(AventuraResult result) {
         results.add(result);
     }
 
-    //cand afla ceva noua, se transmite tuturor metodelor de afisa a noutatii din lista
-    //iar acestea afiseaza informatia 
+    /**
+     * When he finds out new information from the battle, sends it to everyone
+     */
     public void publishResult(String news) {
         for (AventuraResult result: results) {
-            result.writeResult(news);
+            try {
+                result.writeResult(news);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -3,27 +3,23 @@ package logger;
 import java.io.*;
 
 public class WriteFile implements AventuraResult{
-    private File outputFile;
+    private BufferedWriter bufferedWriter;
 
-    public WriteFile(File outputFile) {
-        this.outputFile = outputFile;
+    public WriteFile(File outputFile) throws IOException {
+        this.bufferedWriter = new BufferedWriter(new FileWriter(outputFile));
     }
 
-    public File getOutputFile() {
-        return outputFile;
+    public BufferedWriter getBufferedWriter() {
+        return bufferedWriter;
     }
 
-    public void setOutputFile(File outputFile) {
-        this.outputFile = outputFile;
+    public void setBufferedWriter(BufferedWriter bufferedWriter) {
+        this.bufferedWriter = bufferedWriter;
     }
 
     @Override
-    public void writeResult(String result) {
+    public void writeResult(String result) throws IOException {
         //scrie sirul primit in fisierul de output
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
-            writer.write(result + "\n");
-        } catch (IOException e) {
-            System.out.print(e.getMessage());
-        }
+        bufferedWriter.write(result + "\n");
     }
 }

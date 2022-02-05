@@ -1,10 +1,8 @@
 package trainer;
 
-import builder.PokemonBuilder;
-
 public class Pokemon {
 
-    public final int NO_ATTACK = -1;
+    public static final int NO_ATTACK = -1;
 
     private String name;
     private int HP;
@@ -15,6 +13,34 @@ public class Pokemon {
     private Ability ability1;
     private Ability ability2;
 
+    /**
+     * Check if the pokemmon has normal attack
+     */
+    public int checkNormalAttack(Pokemon pokemon) {
+        if (pokemon.getNormalAttack() != NO_ATTACK)
+            return pokemon.getNormalAttack();
+        return 0;
+    }
+
+    /**
+     * Check if the pokemmon has special attack
+     */
+    public int checkSpecialAttack(Pokemon pokemon) {
+        if (pokemon.getSpecialAttack() != NO_ATTACK)
+            return pokemon.getSpecialAttack();
+        return 0;
+    }
+
+    /**
+     * Calculates the sum of all fields to determine the best pokemon of a coach
+     */
+    public static int getSum(Pokemon pokemon) {
+        int sumQualities = 0;
+        sumQualities += pokemon.getHP() + pokemon.checkNormalAttack(pokemon) + pokemon.checkSpecialAttack(pokemon) +
+                pokemon.getSpecialDefense() + pokemon.getDefense();
+        return sumQualities;
+    }
+    
     public String getName() {
         return name;
     }
@@ -91,44 +117,5 @@ public class Pokemon {
                 ", ability1=" + ability1 +
                 ", ability2=" + ability2 +
                 '}';
-    }
-
-    public int checkNormalAttack(Pokemon pokemon) {
-        if (pokemon.getNormalAttack() != NO_ATTACK)
-            return pokemon.getNormalAttack();
-        return 0;
-    }
-
-    public int checkSpecialAttack(Pokemon pokemon) {
-        if (pokemon.getSpecialAttack() != NO_ATTACK)
-            return pokemon.getSpecialAttack();
-        return 0;
-    }
-
-    public static int getSum(Pokemon pokemon) {
-        int sumQualities = 0;
-        sumQualities += pokemon.getHP() + pokemon.checkNormalAttack(pokemon) + pokemon.checkSpecialAttack(pokemon) +
-                pokemon.getSpecialDefense() + pokemon.getDefense();
-        return sumQualities;
-    }
-
-    @Override
-    public Object clone() {
-        Pokemon pokemon = null;
-        try {
-            pokemon = (Pokemon) super.clone();
-        } catch (CloneNotSupportedException e) {
-            pokemon = new PokemonBuilder()
-                    .withName(this.name)
-                    .withNormalAttack(this.getNormalAttack())
-                    .withSpecialAttack(this.getSpecialAttack())
-                    .withDefense(this.getDefense())
-                    .withSpecialDefense(this.getSpecialDefense())
-                    .build();
-        }
-        pokemon.ability1 = (Ability) this.ability1.clone();
-        pokemon.ability2 = (Ability) this.ability2.clone();
-
-        return pokemon;
     }
 }

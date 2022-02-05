@@ -161,9 +161,8 @@ public class BattlePokemon {
     }
 
     /**
-     *
-     Check if the activity can be used, if not, returns false.
-     If it was the last time it could not be used, reset the cooldown.
+     * Check if the activity can be used, if not, returns false.
+     * If it was the last time it could not be used, reset the cooldown.
      */
     public boolean hasCoolDown(TypeComand type, Pokemon pokemon, int index) {
         if (type == TypeComand.ABILITY1) {

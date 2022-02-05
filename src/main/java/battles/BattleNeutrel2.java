@@ -22,12 +22,11 @@ public class BattleNeutrel2 implements Runnable {
     }
 
     /**
-     *
-     The battle takes place sequentially. First, the arena decides the action of
-     the first pokemon, then, if the pokemon has not executed a dodge ability, it
-     is decided what Neutrel does. At each moment, the status of the pokemon
-     is displayed, what actions they perform, how their attributes have been affected,
-     and whether abilities have been used.
+     * The battle takes place sequentially. First, the arena decides the action of
+     * the first pokemon, then, if the pokemon has not executed a dodge ability, it
+     * is decided what Neutrel does. At each moment, the status of the pokemon
+     * is displayed, what actions they perform, how their attributes have been affected,
+     * and whether abilities have been used.
      */
     public void battleNeutrel2(NeutrelFactory factory, Trainer trainer) {
         Neutrel2 neutrel2 = (Neutrel2) factory.makeNeutrel(TypeNeutrel.Neutrel2);
@@ -176,8 +175,8 @@ public class BattleNeutrel2 implements Runnable {
     }
 
     /**
-     If both opponents have 0 hp, the draw is declared. If Neutrel has 0 hp, the winning
-     pokemon is displayed and the pokemon attributes are incremented.
+     * If both opponents have 0 hp, the draw is declared. If Neutrel has 0 hp, the winning
+     * pokemon is displayed and the pokemon attributes are incremented.
      */
     private void checkWinner(Neutrel2 neutrel2, Trainer trainer) {
         if (neutrel2.getHP() <= 0 && trainer.getPokemons().get(indexPokemon).getHP() <= 0) {

@@ -14,15 +14,15 @@ public class Adventure implements Runnable {
     private int indexPokemon;
     private Logger logger;
     
-    public Adventure(Trainer trainer1, Trainer trainer2, int i, Logger logger) {
+    public Adventure(Trainer trainer1, Trainer trainer2, int indexPokemon, Logger logger) {
         this.trainer1 = trainer1;
         this.trainer2 = trainer2;
-        this.indexPokemon = i;
+        this.indexPokemon = indexPokemon;
         this.logger = logger;
     }
 
     /**
-     * The type of pokemon battle is decided. The arena will choose to fight neutral
+     * The type of battle is decided. The arena will choose to fight neutral
      * pokemon until the pokemon vs pokemon duel is chosen.
      */
     public void fight() {

@@ -19,7 +19,6 @@ public class WriteFile implements AventuraResult{
 
     @Override
     public void writeResult(String result) throws IOException {
-        //scrie sirul primit in fisierul de output
         bufferedWriter.write(result + "\n");
     }
 }

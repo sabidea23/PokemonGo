@@ -1,5 +1,6 @@
 package arena;
 
+import battles.BattlePokemon;
 import input.ReadTrainer;
 import logger.Logger;
 import logger.WriteDetails;
@@ -12,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Arena {
-    private static final int NUMBER_FIGHTS = 3;
     private Trainer trainer1;
     private Trainer trainer2;
     private Logger logger;
@@ -31,41 +31,65 @@ public class Arena {
     }
 
     /**
-     * Find out who is the best pokemon of a coach for the final fight
+     * Find the best pokemon index in a trainer's Pokemon list
     */
-    public Pokemon getBestPokemonForTrainer(Trainer trainer) {
-        Pokemon bestPokemon = trainer.getPokemons().get(0);
+    public int getBestPokemonForTrainer(Trainer trainer) {
+        int maxIndex = 0;
         for (int i = 1; i < trainer.getPokemons().size(); i++) {
-            if (Pokemon.getSum(bestPokemon) < Pokemon.getSum(trainer.getPokemons().get(i)))
-                bestPokemon = trainer.getPokemons().get(i);
-            else if (Pokemon.getSum(bestPokemon) == Pokemon.getSum(trainer.getPokemons().get(i))) {
-                if (bestPokemon.getName().compareTo(trainer.getPokemons().get(i).getName()) > 0) {
-                    bestPokemon = trainer.getPokemons().get(i);
+            if (Pokemon.getSum(trainer.getPokemons().get(maxIndex)) <
+                    Pokemon.getSum(trainer.getPokemons().get(i)))
+                maxIndex = i;
+            else if (Pokemon.getSum(trainer.getPokemons().get(maxIndex)) ==
+                    Pokemon.getSum(trainer.getPokemons().get(i))) {
+                if (trainer.getPokemons().get(maxIndex).getName().compareTo
+                        (trainer.getPokemons().get(i).getName()) > 0) {
+                    maxIndex = i;
                 }
             }
         }
-        return bestPokemon;
+        return maxIndex;
+    }
+
+    public static void joinThread(Thread thread) {
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Add items that increase the pokemon's abilities, then we take one pokemon
-     * from each trainer into the arena. In the final battle, the best Pokemon of the 2 trainers duel. The adventure consists in the direct confrontation
-     * between them, without fighting Neutrel.
+     * from each trainer into the arena. In the final battle, the best Pokemon of the 2 trainers duel.
+     * The adventure consists in the direct confrontation between them, without fighting Neutrel.
+     * The first three battles between the Pokemon of the two trainers will take place on different threads
      */
     public void fight() {
         PreparePokemons.giveItems(trainer1);
         PreparePokemons.giveItems(trainer2);
 
-        for (int i = 0; i < NUMBER_FIGHTS; i++) {
-            Adventure adventure = new Adventure(trainer1, trainer2, i, logger);
-            adventure.fight();
-        }
+        Thread firstFight = new Thread(new Adventure(trainer1, trainer2, 0, logger));
+        Thread secondFight = new Thread(new Adventure(trainer1, trainer2, 1, logger));
+        Thread thirdFight = new Thread(new Adventure(trainer1, trainer2, 2, logger));
 
-        Pokemon pokemon1 = getBestPokemonForTrainer(trainer1);
-        Pokemon pokemon2 = getBestPokemonForTrainer(trainer2);
+        firstFight.start();
+        joinThread(firstFight);
 
-        logger.publishResult(WriteDetails.bestPokemons(pokemon1, pokemon2));
-        //se apeleaza metoda pentru duelul a doi pokemoni oe threaduri
+        secondFight.start();
+        joinThread(secondFight);
+
+        thirdFight.start();
+        joinThread(thirdFight);
+
+        int bestPokemonTrainer1 = getBestPokemonForTrainer(trainer1);
+        int bestPokemonTrainer2 = getBestPokemonForTrainer(trainer2);
+
+        logger.publishResult(WriteDetails.bestPokemonTrainer(trainer1, bestPokemonTrainer1));
+        logger.publishResult(WriteDetails.bestPokemonTrainer(trainer2, bestPokemonTrainer2));
+
+        BattlePokemon finalBattle = new BattlePokemon(trainer1, trainer2,
+                bestPokemonTrainer1, bestPokemonTrainer2, logger);
+        finalBattle.fight();
     }
 
     public Trainer getTrainer1() {

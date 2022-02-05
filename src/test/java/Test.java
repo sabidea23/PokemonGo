@@ -49,6 +49,7 @@ public class Test {
         arena.fight();
     }
 
+
     @org.junit.jupiter.api.Test
     public void Test3() {
         String fileTrainer1 = "tests\\\\test3\\\\test3_antrenor1.in";
@@ -144,7 +145,6 @@ public class Test {
         arena.fight();
     }
 
-
     @org.junit.jupiter.api.Test
     public void Test10() {
         String fileTrainer1 = "tests\\\\test10\\\\test10_antrenor1.in";
@@ -157,4 +157,5 @@ public class Test {
         Arena arena = new Arena(inputTrainer1, inputTrainer2, items1, items2, outputFile);
         arena.fight();
     }
+
 }

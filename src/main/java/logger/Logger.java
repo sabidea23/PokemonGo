@@ -30,7 +30,7 @@ public class Logger {
     /**
      * When he finds out new information from the battle, sends it to everyone
      */
-    public void publishResult(String news) {
+    public synchronized void publishResult(String news) {
         for (AventuraResult result: results) {
             try {
                 result.writeResult(news);

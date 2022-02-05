@@ -10,7 +10,6 @@ import trainer.Ability;
 import trainer.Pokemon;
 import trainer.Trainer;
 
-
 public class WriteDetails {
     public static String whoFights(Pokemon pokemon1, Pokemon pokemon2) {
         return "\n----------The next pokemon will fight in this adventure:---------\n" +
@@ -50,6 +49,13 @@ public class WriteDetails {
                 "b." + neutrel2.toString();
     }
 
+    public static String statusPokemonVSPokemon(TypeComand type1, Pokemon pokemon1,
+                                             TypeComand type2, Pokemon pokemon2) {
+        return pokemon1.getName() + " executed " + type1.toString() + " and " + pokemon2.getName() +
+                " executed: " + type2.toString() + "\n" +
+                "Result: a." + pokemon1.toString() + "\n" + "b." + pokemon2.toString();
+    }
+
     public static String ability(Ability ability) {
         return "The pokemon uses an ability " + ability.toString();
     }
@@ -74,5 +80,22 @@ public class WriteDetails {
 
     public static String abilityUnavailable(int time) {
         return "The ability was already used, Pleasa wait " + time + "  moments to use it again!.";
+    }
+
+    public static String bestPokemon(Trainer trainer, int index) {
+        return "\n----------The best Pokemon is " + trainer.getPokemons().get(index).toString() + " ------------";
+    }
+
+    public static String drawPolemonFight() {
+        return "--------Draw!-------";
+    }
+
+    public static String bestPokemonTrainer(Trainer trainer, int index) {
+        return "The best Pokemon of trainer " + trainer.getName() + " is " +
+                trainer.getPokemons().get(index).toString();
+    }
+
+    public static String pokemonStun(Pokemon pokemon) {
+        return pokemon.getName() + " is stun. ";
     }
 }

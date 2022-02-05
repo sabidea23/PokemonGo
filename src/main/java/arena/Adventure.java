@@ -1,12 +1,14 @@
 package arena;
 
+import battles.BattleNeutrel1;
+import battles.BattleNeutrel2;
+import battles.BattlePokemon;
 import logger.Logger;
 import logger.WriteDetails;
 import trainer.Pokemon;
 import trainer.Trainer;
 
-
-public class Adventure {
+public class Adventure implements Runnable {
     private Trainer trainer1;
     private Trainer trainer2;
     private int indexPokemon;
@@ -34,8 +36,8 @@ public class Adventure {
             logger.publishResult(WriteDetails.typeOfBattle(type));
 
             switch (type) {
-                case WITH_NEUTREL1 -> new BattleNeutrel1(trainer1, trainer2,indexPokemon, logger).fightWithNeutrel1();
-                case WITH_NEUTREL2 ->  new BattleNeutrel2(trainer1, trainer2,indexPokemon, logger).fightWithNeutrel2();
+                case WITH_NEUTREL1 -> fightNeutrel1();
+                case WITH_NEUTREL2 -> fightNeutrel2();
                 case POKEMON_VS_POKEMON -> {
                                     fightPokemons();
                                     notPokemonVSPokemon = true;
@@ -45,9 +47,55 @@ public class Adventure {
         }
     }
 
-    //lupta intre doi pokemoni
+    /**
+     * When the arena decides that the pokemon will fight Neutrel1,
+     * the fights will take place on different threads.
+     */
+    private void fightNeutrel2() {
+        Thread thread1 = new Thread(new BattleNeutrel1(trainer1, indexPokemon,logger, 1));
+        Thread thread2 =  new Thread(new BattleNeutrel2(trainer2, indexPokemon,logger, 2));
+        thread1.start();
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        thread2.start();
+        try {
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * When the arena decides that the pokemon will fight Neutrel2,
+     * the fights will take place on different threads.
+     */
+    private void fightNeutrel1() {
+        Thread thread1 = new Thread(new BattleNeutrel1(trainer1, indexPokemon,logger, 1));
+        Thread thread2 =  new Thread(new BattleNeutrel1(trainer2, indexPokemon,logger, 2));
+        thread1.start();
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        thread2.start();
+        try {
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The battle between the two Pokemon trainers.
+     */
     public void fightPokemons() {
-        System.out.println("Lupta pokemon vs pokemon");
+        BattlePokemon battlePokemon = new BattlePokemon(trainer1, trainer2,
+                indexPokemon, indexPokemon, logger);
+        battlePokemon.fight();
     }
 
     public Trainer getTrainer1() {
@@ -80,5 +128,10 @@ public class Adventure {
 
     public void setLogger(Logger logger) {
         this.logger = logger;
+    }
+
+    @Override
+    public void run() {
+        fight();
     }
 }

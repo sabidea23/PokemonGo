@@ -1,0 +1,15 @@
+Java project that simulates the PokemonGo application. 
+For each test, the data about 2 trainers are read, each of
+them having 3 pokemon. A battle takes place one after another 
+between the pokemon trainers in the arena. Here they can fight 
+with neutral pokemon or against each other. 
+
+The battles between pokemon are done using threads.
+ 
+ In the implementation of the project we used 4 design patterns:
+-> Builder for building pokemon, special items and abilities
+-> Factory for the construction of neutral pokemon that have similar attributes
+-> Singleton to get a single instance of a class, which is a global 
+access point for the entire program
+-> Observer, for the implementation of the logger that observes an important event 
+during the fight and displays it both on stdout and in output files
